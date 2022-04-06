@@ -15,7 +15,8 @@ app = flask.Flask(__name__)
 
 @app.route('/')
 def start():
-    return('write /download to url to load excel')
+    return str(os.path.abspath(os.curdir))
+    #return('write /download to url to load excel')
 
 @app.route('/download')
 def download():
@@ -38,13 +39,12 @@ def download():
                 break
             if message.text !='':
                 df.loc[len(df)] = [channel, numberofusers, r.sub('',message.text.replace('\n',' ')), str(message.date), message.views, message.forwards, message.pinned]
-    print(df)
     df.to_excel("parsing_tg.xlsx")
     return flask.send_file("parsing_tg.xlsx", as_attachment=True)
 
 @app.route('/update')
 def update():
-    os.remove("tmp/parsing_tg.xlsx")
+    os.remove(os.path.abspath(os.curdir)+"\parsing_tg.xlsx")
     return redirect(url_for('download'))
 
 if __name__ == "__main__":
