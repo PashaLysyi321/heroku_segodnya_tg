@@ -17,7 +17,7 @@ def start():
     return('write /download to url to load excel')
 
 @app.route('/download')
-def home():
+def download():
     channel = 'Segodnya_life'
     url = """https://api.telegram.org/bot986604365:AAHiOKpoNY3YNF71Jav26J6ONSFnDft9rJ0/getChatMemberCount?chat_id=@"""+channel
     r = requests.get(url)
@@ -44,7 +44,7 @@ def home():
     return('done')
 
 @app.route('/update'):
-def upd():
+def update():
     os.remove("parsing_tg.xlsx")
     return redirect(url_for('download'))
 
