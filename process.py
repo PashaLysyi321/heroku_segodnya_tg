@@ -8,6 +8,7 @@ import pandas as pd
 import re
 import requests
 import json
+import os
 
 app = flask.Flask(__name__)
 
@@ -37,7 +38,9 @@ def home():
                 df.loc[len(df)] = [channel, numberofusers, r.sub('',message.text.replace('\n',' ')), str(message.date), message.views, message.forwards, message.pinned]
     print(df)
     df.to_excel("parsing_tg.xlsx")
-    return flask.send_file("parsing_tg.xlsx", as_attachment=True)
+    flask.send_file("parsing_tg.xlsx", as_attachment=True)
+    os.remove("parsing_tg.xlsx")
+    return('done')
 
 if __name__ == "__main__":
     app.run()
