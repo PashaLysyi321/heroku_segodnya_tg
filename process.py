@@ -10,6 +10,7 @@ import re
 import requests
 import json
 import os
+import random
 
 app = flask.Flask(__name__)
 
@@ -20,6 +21,7 @@ def start():
 
 @app.route('/download')
 def download():
+    ran = random.randint(0,2200)
     channel = 'Segodnya_life'
     url = """https://api.telegram.org/bot986604365:AAHiOKpoNY3YNF71Jav26J6ONSFnDft9rJ0/getChatMemberCount?chat_id=@"""+channel
     r = requests.get(url)
@@ -39,8 +41,8 @@ def download():
                 break
             if message.text !='':
                 df.loc[len(df)] = [channel, numberofusers, r.sub('',message.text.replace('\n',' ')), str(message.date), message.views, message.forwards, message.pinned]
-    df.to_excel("parsing_tg.xlsx")
-    return flask.send_file("parsing_tg.xlsx", as_attachment=True)
+    df.to_excel("parsing_tg"+str(ran)+".xlsx")
+    return flask.send_file("parsing_tg"+str(ran)+".xlsx", as_attachment=True)
 
 @app.route('/update')
 def update():
