@@ -1,4 +1,5 @@
 import flask
+from flask import redirect, url_for
 from telethon import TelegramClient, functions, types
 from asyncio import run
 import asyncio
@@ -39,13 +40,13 @@ def download():
                 df.loc[len(df)] = [channel, numberofusers, r.sub('',message.text.replace('\n',' ')), str(message.date), message.views, message.forwards, message.pinned]
     print(df)
     df.to_excel("parsing_tg.xlsx")
-    flask.send_file("parsing_tg.xlsx", as_attachment=True)
-    os.remove("parsing_tg.xlsx")
-    return('done')
+    return flask.send_file("parsing_tg.xlsx", as_attachment=True)
 
 @app.route('/update')
 def update():
-    os.remove("parsing_tg.xlsx")
+    try:
+        os.remove("parsing_tg.xlsx")
+    except:pass
     return redirect(url_for('download'))
 
 if __name__ == "__main__":
