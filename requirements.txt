@@ -20,4 +20,5 @@ telethon
 asyncio
 datetime
 pandas
+openpyxl
 requests
