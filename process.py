@@ -4,7 +4,7 @@ from telethon import TelegramClient, functions, types
 from asyncio import run
 import asyncio
 from telethon.tl.functions.contacts import ResolveUsernameRequest
-from datetime import date
+from datetime import date, timedelta  
 import pandas as pd
 import re
 import requests
@@ -41,7 +41,7 @@ def download():
             if message.date.date() != date.today():
                 break
             if message.text !='':
-                df.loc[len(df)] = [channel, numberofusers, r.sub('',message.text.replace('\n',' ')), str(message.date), message.views, message.forwards, message.pinned]
+                df.loc[len(df)] = [channel, numberofusers, r.sub('',message.text.replace('\n',' ')), str(message.date + timedelta(hours=3)), message.views, message.forwards, message.pinned]
     df.to_excel("parsing_tg"+str(ran)+".xlsx")
     return flask.send_file("parsing_tg"+str(ran)+".xlsx", as_attachment=True)
 
