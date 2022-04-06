@@ -43,7 +43,7 @@ def download():
     os.remove("parsing_tg.xlsx")
     return('done')
 
-@app.route('/update'):
+@app.route('/update')
 def update():
     os.remove("parsing_tg.xlsx")
     return redirect(url_for('download'))
