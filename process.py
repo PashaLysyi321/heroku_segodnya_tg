@@ -15,6 +15,7 @@ app = flask.Flask(__name__)
 @app.route('/')
 def start():
     return('write /download to url to load excel')
+
 @app.route('/download')
 def home():
     channel = 'Segodnya_life'
@@ -41,6 +42,11 @@ def home():
     flask.send_file("parsing_tg.xlsx", as_attachment=True)
     os.remove("parsing_tg.xlsx")
     return('done')
+
+@app.route('/update'):
+def upd():
+    os.remove("parsing_tg.xlsx")
+    return redirect(url_for('download'))
 
 if __name__ == "__main__":
     app.run()
