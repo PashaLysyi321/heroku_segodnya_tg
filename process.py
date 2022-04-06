@@ -10,6 +10,10 @@ import requests
 import json
 
 app = flask.Flask(__name__)
+
+@app.route('/')
+def start():
+    return('write /download to url to load excel')
 @app.route('/download')
 def home():
     channel = 'Segodnya_life'
