@@ -44,7 +44,7 @@ def download():
 
 @app.route('/update')
 def update():
-    os.remove("parsing_tg.xlsx")
+    os.remove("tmp/parsing_tg.xlsx")
     return redirect(url_for('download'))
 
 if __name__ == "__main__":
