@@ -20,6 +20,5 @@ telethon
 asyncio
 datetime
 pandas
-re
 requests
 json
