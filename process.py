@@ -1,5 +1,5 @@
 import flask
-from flask import redirect, url_for
+from flask import redirect, url_for, request
 from telethon import TelegramClient, functions, types
 from asyncio import run
 import asyncio
@@ -19,9 +19,10 @@ def start():
     return str(os.path.abspath(os.curdir))
     #return('write /download to url to load excel')
 
-@app.route('/download')
+@app.route('/download', methods=['GET', 'POST'])
 def download():
-    ran = random.randint(0,2200)
+    ran = request.args.get("index")
+    print(ran)
     channel = 'Segodnya_life'
     url = """https://api.telegram.org/bot986604365:AAHiOKpoNY3YNF71Jav26J6ONSFnDft9rJ0/getChatMemberCount?chat_id=@"""+channel
     r = requests.get(url)
