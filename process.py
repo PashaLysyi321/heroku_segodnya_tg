@@ -11,6 +11,7 @@ import requests
 import json
 import os
 import random
+import time
 
 app = flask.Flask(__name__)
 
@@ -21,8 +22,7 @@ def start():
 
 @app.route('/download', methods=['GET', 'POST'])
 def download():
-    ran = request.args.get("index")
-    print(ran)
+    ran = time.time()
     channel = 'Segodnya_life'
     url = """https://api.telegram.org/bot986604365:AAHiOKpoNY3YNF71Jav26J6ONSFnDft9rJ0/getChatMemberCount?chat_id=@"""+channel
     r = requests.get(url)
@@ -43,7 +43,7 @@ def download():
             if message.text !='':
                 df.loc[len(df)] = [channel, numberofusers, r.sub('',message.text.replace('\n',' ')), str(message.date + timedelta(hours=3)), message.views, message.forwards, message.pinned]
     df.to_excel("parsing_tg"+str(ran)+".xlsx")
-    return flask.send_file("parsing_tg"+str(ran)+".xlsx", as_attachment=True)
+    return flask.send_file("segodnya_tg_"+str(ran)+".xlsx", as_attachment=True)
 
 @app.route('/update')
 def update():
