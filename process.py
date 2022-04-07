@@ -42,7 +42,7 @@ def download():
                 break
             if message.text !='':
                 df.loc[len(df)] = [channel, numberofusers, r.sub('',message.text.replace('\n',' ')), str(message.date + timedelta(hours=3)), message.views, message.forwards, message.pinned]
-    df.to_excel("parsing_tg"+str(ran)+".xlsx")
+    df.to_excel("segodnya_tg_"+str(ran)+".xlsx")
     return flask.send_file("segodnya_tg_"+str(ran)+".xlsx", as_attachment=True)
 
 @app.route('/update')
